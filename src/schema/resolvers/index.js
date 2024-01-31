@@ -6,14 +6,25 @@ const resolvers = {
             const users = await Users.find()
             return users
         },
-        async getUser(_, { id }) {
-            const user = await Users.findById(id);
-            return user
+        async findUser(_, { username }) {
+            try {
+                const user = await Users.findOne({
+                     userName: username 
+                });
+
+                if (!user) {
+                    throw new Error('user not found')
+                }
+
+                return user
+            } catch (error) {
+               throw error
+            }
         }
     },
     Mutation: {
-        createUser: async (_, { name, password }, context) => {
-            const newUser = new Users({ name, password })
+        createUser: async (_, { userName, password, email }, context) => {
+            const newUser = new Users({ userName, password, email })
             await newUser.save()
             return newUser
         },

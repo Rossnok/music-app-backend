@@ -4,12 +4,12 @@ const typeDefs = gql`
 #Querys
 type Query {
     getUsers: [User]
-    getUser(id: ID): User
+    findUser(username: String): User
 }
 
 #Mutations
 type Mutation {
-    createUser(name: String, password: String): User
+    createUser(userName: String, password: String, email: String): User
     deleteUser(id: ID): String
     updateUser( id: ID, name: String, password: String): String
 }
@@ -20,8 +20,7 @@ type User {
     userName: String
     password: String
     email: String
-}
-    
+}    
 `
 
 module.exports = { typeDefs }
